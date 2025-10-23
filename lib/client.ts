@@ -2,7 +2,7 @@
 
 // ref: https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#prismaclient-in-long-running-applications
 
-import {PrismaClient} from "@prisma/client/extension";
+import {PrismaClient} from "@/app/generated/prisma";
 
 const globalForPrisma = globalThis as unknown as {prisma: PrismaClient};
 
