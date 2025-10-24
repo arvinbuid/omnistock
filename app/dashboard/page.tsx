@@ -32,6 +32,32 @@ const Dashboard = async () => {
         take: 5
     });
 
+    // Display new products in the last 12 weeks
+    const weeklyProductsData = [];
+    const now = new Date();
+
+    for (let i = 11; i >= 0; i--) {
+        const weekStart = new Date(now);
+        weekStart.setDate(weekStart.getDate() - i * 7);
+        weekStart.setHours(0, 0, 0, 0);
+
+        const weekEnd = new Date(weekStart)
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        weekEnd.setHours(23, 59, 59, 999);
+
+        const weekLabels = `${String(weekStart.getMonth() + 1).padStart(2, '0')} / ${String(weekStart.getDate() + 1).padStart(2, '0')}`
+        const weekProducts = allProducts.filter((product) => {
+            const productDate = new Date(product.createdAt);
+            return productDate >= weekStart && productDate <= weekEnd;
+        })
+
+        // labels to show in the graph on the x & y axis
+        weeklyProductsData.push({
+            week: weekLabels,
+            products: weekProducts.length
+        })
+    }
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/dashboard" />
@@ -86,7 +112,7 @@ const Dashboard = async () => {
                     <div className="p-6 border border-gray-200 shadow bg-white rounded-lg font-mono">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6">New Products per week</h2>
                         <div className="h-48">
-                            <ProductsChart />
+                            <ProductsChart data={weeklyProductsData} />
                         </div>
                     </div>
                 </div>
