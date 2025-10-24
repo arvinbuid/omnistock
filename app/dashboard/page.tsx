@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/client";
 import { TrendingUp } from "lucide-react";
 import Sidebar from "../components/sidebar";
+import ProductsChart from "../components/products-chart";
 
 const Dashboard = async () => {
     // Get the current user
@@ -78,6 +79,14 @@ const Dashboard = async () => {
                                     <TrendingUp className="w-3 h-3" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* New Products per Week */}
+                    <div className="p-6 border border-gray-200 shadow bg-white rounded-lg font-mono">
+                        <h2 className="text-xl font-semibold text-gray-900 mb-6">New Products per week</h2>
+                        <div className="h-48">
+                            <ProductsChart />
                         </div>
                     </div>
                 </div>
