@@ -1,12 +1,17 @@
 import { prisma } from "@/lib/client";
 import { getCurrentUser } from "@/lib/auth";
 import { TrashIcon } from "lucide-react";
+import { deleteProduct } from "@/lib/actions/products";
 import Sidebar from "../components/sidebar";
 
 const Inventory = async () => {
     const user = await getCurrentUser();
     const userId = user.id;
     const allProducts = await prisma.product.findMany({ where: { userId } })
+    const handleFormSubmit = async (formData: FormData) => {
+        'use server'
+        await deleteProduct(formData)
+    }
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/inventory" />
@@ -45,9 +50,9 @@ const Inventory = async () => {
                                         <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>
                                         <td className="px-6 py-3 text-sm text-gray-800">{product.lowStockAt || '-'}</td>
                                         <td className="px-6 py-3 text-sm text-gray-800">
-                                            <form>
+                                            <form action={handleFormSubmit}>
                                                 <input type="hidden" name="id" value={product.id}></input>
-                                                <button className="p-2 rounded-md bg-red-600 text-white cursor-pointer">
+                                                <button type='submit' className="p-2 rounded-md bg-red-600 text-white cursor-pointer">
                                                     <TrashIcon className="w-3.5 h-3.5 font-bold" />
                                                 </button>
                                             </form>
