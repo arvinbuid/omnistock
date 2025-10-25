@@ -58,6 +58,16 @@ const Dashboard = async () => {
         })
     }
 
+    // Stock calculations
+    const inStockCount = allProducts.filter((product) => Number(product.quantity) > 5).length;
+    const lowStockCount = allProducts.filter((product) => Number(product.quantity) <= 5 && Number(product.quantity) >= 1).length;
+    const outOfStockCount = allProducts.filter((product) => Number(product.quantity) === 0).length;
+
+    // Percentages
+    const inStockPercentage = totalProducts > 0 ? Math.floor((inStockCount / totalProducts) * 100) : 0;
+    const lowStockPercentage = totalProducts > 0 ? Math.floor((lowStockCount / totalProducts) * 100) : 0;
+    const outOfStockPercentage = totalProducts > 0 ? Math.floor((outOfStockCount / totalProducts) * 100) : 0;
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/dashboard" />
@@ -139,6 +149,43 @@ const Dashboard = async () => {
                                     </div>
                                 )
                             })}
+                        </div>
+                    </div>
+
+                    {/* Efficiency */}
+                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-mono">
+                        <h2 className="text-xl font-semibold mb-6">Efficiency</h2>
+                        <div className="flex items-center justify-center">
+                            <div className="relative w-48 h-48">
+                                <div className="absolute inset-0 rounded-full border-8 border-gray-200"></div>
+                                <div
+                                    className="absolute inset-0 rounded-full border-8 border-purple-600"
+                                    style={{ clipPath: "polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 50%)" }}
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="text-center">
+                                        <p className=" text-2xl text-gray-900 font-bold">{inStockPercentage}%</p>
+                                        <p className="text-md text-gray-600">In Stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Labels */}
+                        <div className="flex flex-col mt-8">
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-3 h-3 rounded-full bg-purple-300" />
+                                    <span className="text-sm text-gray-900">In Stock ({inStockPercentage})%</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-3 h-3 rounded-full bg-purple-600" />
+                                    <span className="text-sm text-gray-900">Low Stock ({lowStockPercentage})%</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-3 h-3 rounded-full bg-gray-300" />
+                                    <span className="text-sm text-gray-900">Out of Stock ({outOfStockPercentage})%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
