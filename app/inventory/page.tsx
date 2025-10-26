@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { TrashIcon } from "lucide-react";
 import { deleteProduct } from "@/lib/actions/products";
 import Sidebar from "../components/sidebar";
+import Pagination from "../components/pagination";
 
 const Inventory = async ({ searchParams }: {
     searchParams: Promise<{
@@ -11,11 +12,19 @@ const Inventory = async ({ searchParams }: {
 }) => {
     const params = await searchParams;
     const q = (params.q || '').trim();
-
-
     const user = await getCurrentUser();
     const userId = user.id;
-    const allProducts = await prisma.product.findMany({ where: { userId, name: { contains: q, mode: 'insensitive' } } }) // 
+
+    // db queries
+    const [totalCount, items] = await Promise.all([
+        prisma.product.count({ where: { userId, name: { contains: q, mode: 'insensitive' } } }),
+        prisma.product.findMany({ where: { userId, name: { contains: q, mode: 'insensitive' } } })
+    ])
+
+    // pagination
+    const pageSize = 10;
+    const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+
     const handleFormSubmit = async (formData: FormData) => {
         'use server'
         await deleteProduct(formData)
@@ -52,7 +61,7 @@ const Inventory = async ({ searchParams }: {
                     </div>
 
                     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                        {allProducts.length > 0 ? (
+                        {items.length > 0 ? (
                             <table className="w-full">
                                 <thead className="border-b border-gray-200">
                                     <tr className="font-mono">
@@ -65,7 +74,7 @@ const Inventory = async ({ searchParams }: {
                                     </tr>
                                 </thead>
                                 <tbody className='bg-white divide-y divide-gray-200'>
-                                    {allProducts.map((product, index) => (
+                                    {items.map((product, index) => (
                                         <tr key={index} className="even:bg-gray-100 odd:bg-white">
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.name}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.sku || '-'}</td>
@@ -90,6 +99,12 @@ const Inventory = async ({ searchParams }: {
                             </div>
                         )}
                     </div>
+
+                    {totalPages > 1 && (
+                        <div className="p-6 rounded-lg border border-gray-200">
+                            <Pagination />
+                        </div>
+                    )}
                 </div>
             </main>
         </div>
