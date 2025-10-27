@@ -12,7 +12,7 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
     if (totalPages <= 1) return null;
     const getPageUrl = (page: number) => {
         const params = new URLSearchParams(searchParams);
-        return `${baseUrl}?${params.toString()}&page=${page}`;
+        return `${baseUrl}?${params.toString()}&page=${page < 1 ? 1 : page > totalPages ? totalPages : page}`;
     }
 
     const getVisiblePages = () => {
