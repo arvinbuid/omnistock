@@ -7,7 +7,8 @@ import Pagination from "../components/pagination";
 
 const Inventory = async ({ searchParams }: {
     searchParams: Promise<{
-        q?: string
+        q?: string,
+        page?: string
     }>
 }) => {
     const params = await searchParams;
@@ -24,6 +25,7 @@ const Inventory = async ({ searchParams }: {
     // pagination
     const pageSize = 10;
     const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+    const page = Math.max(1, Number(params.page ?? 1)) // default to page 1
 
     const handleFormSubmit = async (formData: FormData) => {
         'use server'
@@ -102,7 +104,10 @@ const Inventory = async ({ searchParams }: {
 
                     {totalPages > 1 && (
                         <div className="p-6 rounded-lg border border-gray-200">
-                            <Pagination />
+                            <Pagination currentPage={page} totalPages={pageSize} baseUrl='/inventory' searchParams={{
+                                q,
+                                pageSize: String(pageSize)
+                            }} />
                         </div>
                     )}
                 </div>
