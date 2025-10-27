@@ -16,16 +16,22 @@ const Inventory = async ({ searchParams }: {
     const user = await getCurrentUser();
     const userId = user.id;
 
+    // pagination
+    const page = Math.max(1, Number(params.page ?? 1)) // default to page 1
+    const pageSize = 5;
+
     // db queries
     const [totalCount, items] = await Promise.all([
         prisma.product.count({ where: { userId, name: { contains: q, mode: 'insensitive' } } }),
-        prisma.product.findMany({ where: { userId, name: { contains: q, mode: 'insensitive' } } })
+        prisma.product.findMany({
+            where: { userId, name: { contains: q, mode: 'insensitive' } },
+            orderBy: { createdAt: 'desc' },
+            skip: (page - 1) * pageSize,
+            take: pageSize
+        })
     ])
 
-    // pagination
-    const pageSize = 10;
     const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
-    const page = Math.max(1, Number(params.page ?? 1)) // default to page 1
 
     const handleFormSubmit = async (formData: FormData) => {
         'use server'
