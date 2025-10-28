@@ -23,12 +23,14 @@ function LoadingSidebar() {
 
   return (
     <div className="fixed left-0 top-0 min-h-screen text-white w-64 bg-gray-800 p-6 z-10">
+      {/* Sidebar Logo */}
       <div className="mb-8">
         <div className="flex items-center mb-4 gap-2 px-2">
           <BarChart3 className="w-6 h-6" />
           <h1>OmniStock</h1>
         </div>
       </div>
+      {/* Nav Links */}
       <nav className="space-y-1 px-2">
         <div className="text-xs uppercase text-gray-400 font-semibold">Inventory</div>
         <ul className="text-sm space-y-1 mt-5">
@@ -47,8 +49,9 @@ function LoadingSidebar() {
           })}
         </ul>
       </nav>
-      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-700">
-        <div className="flex items-center justify-between">
+      {/* Sidebar Footer */}
+      <div className="absolute bottom-0 left-0 right-0 border-t border-gray-700 p-4 w-[calc(100%-32px)] mx-auto">
+        <div className="flex items-center justify-between text-sm ">
           <div className="flex-1 min-w-0">
             <Skeleton className="h-4 w-16 mb-1" />
             <Skeleton className="h-3 w-24" />
