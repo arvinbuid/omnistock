@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Omnistock",
-  description: "Work-in-progress inventory management system",
+  description: "Simple Inventory Management System built with Next.js, TypeScript, and Prisma.",
 };
 
 export default function RootLayout({
