@@ -12,6 +12,13 @@
   --font-mono: var(--font-geist-mono);
   --font-inter: var(--font-inter);
 }
+@utility rectangle-top {
+  clip-path: polygon(0 0, 100% 0, 0 75%);
+}
+
+@utility rectangle-bottom {
+  clip-path: polygon(100% 100%, 0% 100%, 100% 25%);
+}
 
 body {
   background: var(--background);
