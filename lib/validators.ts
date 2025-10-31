@@ -7,3 +7,7 @@ export const ProductSchema = z.object({
   sku: z.string().optional(),
   lowStockAt: z.coerce.number().int().min(0).optional(),
 });
+
+export const ProductUpdateSchema = ProductSchema.extend({
+  id: z.string().min(1, "Product id is required"),
+});
