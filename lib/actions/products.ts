@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import {getCurrentUser} from "../auth";
 import {prisma} from "../client";
 import z from "zod";
+import {convertToPlainObject} from "../utils";
 
 const ProductSchema = z.object({
   name: z.string().min(3, "Product name must be at least 3 characters long"),
@@ -12,6 +13,11 @@ const ProductSchema = z.object({
   sku: z.string().optional(),
   lowStockAt: z.coerce.number().int().min(0).optional(),
 });
+
+export const getProductById = async (productId: string) => {
+  const product = await prisma.product.findFirst({where: {id: productId}});
+  return convertToPlainObject(product);
+};
 
 export const createProduct = async (formData: FormData) => {
   const user = await getCurrentUser();
