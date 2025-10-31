@@ -123,7 +123,7 @@ const EditProduct = async (props: {
                                     Update Product
                                 </button>
                                 <Link
-                                    href={`/edit-product/${id}`}
+                                    href={`/inventory`}
                                     className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm cursor-pointer"
                                 >
                                     Cancel
