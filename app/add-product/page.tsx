@@ -88,15 +88,15 @@ const AddProductPage = async () => {
                                 {/* Low Stock Threshold*/}
                                 <div>
                                     <label
-                                        htmlFor="lowstockAt"
+                                        htmlFor="lowStockAt"
                                         className="block text-sm font-medium text-gray-700 mb-2"
                                     >
                                         Low Stock At (Optional)
                                     </label>
                                     <input
                                         type="number"
-                                        id="lowstockAt"
-                                        name="lowstockAt"
+                                        id="lowStockAt"
+                                        name="lowStockAt"
                                         placeholder="Enter low stock threshold"
                                         className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
                                     />
