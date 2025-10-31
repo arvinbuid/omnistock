@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/client";
 import { getCurrentUser } from "@/lib/auth";
-import { TrashIcon } from "lucide-react";
+import { SquarePen, TrashIcon } from "lucide-react";
 import { deleteProduct } from "@/lib/actions/products";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
+import Link from "next/link";
 
 const Inventory = async ({ searchParams }: {
     searchParams: Promise<{
@@ -92,9 +93,17 @@ const Inventory = async ({ searchParams }: {
                                             <td className="px-6 py-3 text-sm text-gray-800">
                                                 <form action={handleFormSubmit}>
                                                     <input type="hidden" name="id" value={product.id}></input>
-                                                    <button type='submit' className="p-2 rounded-md bg-red-600 text-white cursor-pointer">
-                                                        <TrashIcon className="w-3.5 h-3.5 font-bold" />
-                                                    </button>
+                                                    <div className="flex items-center gap-2">
+                                                        <button type='submit' className="p-2 rounded-md bg-red-600 text-white cursor-pointer">
+                                                            <TrashIcon className="w-3.5 h-3.5 font-bold" />
+                                                        </button>
+                                                        <Link
+                                                            href={`/edit-product/${product.id}`}
+                                                            className="p-2 rounded-md bg-yellow-600 text-white cursor-pointer"
+                                                        >
+                                                            <SquarePen className="w-3.5 h-3.5 font-bold" />
+                                                        </Link>
+                                                    </div>
                                                 </form>
                                             </td>
                                         </tr>
