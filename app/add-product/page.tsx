@@ -1,8 +1,29 @@
-import { createProduct } from "@/lib/actions/products";
+'use client'
+
 import Sidebar from "../components/sidebar";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { startTransition, useRef } from "react";
+import { createProduct } from "@/lib/actions/products";
+import { useRouter } from "next/navigation";
 
-const AddProductPage = async () => {
+const AddProductPage = () => {
+    const formRef = useRef<HTMLFormElement>(null);
+    const router = useRouter();
+
+    const handleSubmit = (formData: FormData) => {
+        startTransition(async () => {
+            const res = await createProduct(formData);
+
+            if (res.success) {
+                toast.success(res.message);
+                formRef.current?.reset();
+                router.push("/inventory");
+            } else {
+                toast.error(res.message);
+            }
+        })
+    }
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -18,7 +39,11 @@ const AddProductPage = async () => {
                     </div>
                     <div className="max-w-xl">
                         <div className="bg-white p-6 border border-gray-200 rounded-lg shadow">
-                            <form className="space-y-6" action={createProduct}>
+                            <form
+                                ref={formRef}
+                                className="space-y-6"
+                                action={handleSubmit}
+                            >
                                 {/* Product Name */}
                                 <div>
                                     <label

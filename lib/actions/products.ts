@@ -12,28 +12,35 @@ export const getProductById = async (productId: string) => {
 };
 
 export const createProduct = async (formData: FormData) => {
-  const user = await getCurrentUser();
-  const userId = user.id;
-
-  const parsed = ProductSchema.safeParse({
-    name: formData.get("name"),
-    price: formData.get("price"),
-    quantity: formData.get("quantity"),
-    sku: formData.get("sku") || undefined,
-    lowStockAt: formData.get("lowStockAt") || undefined,
-  });
-
-  if (!parsed.success) throw new Error("Validation failed!");
-
   try {
+    const user = await getCurrentUser();
+    const userId = user.id;
+
+    const parsed = ProductSchema.safeParse({
+      name: formData.get("name"),
+      price: formData.get("price"),
+      quantity: formData.get("quantity"),
+      sku: formData.get("sku") || undefined,
+      lowStockAt: formData.get("lowStockAt") || undefined,
+    });
+
+    if (!parsed.success) throw new Error("Validation failed!");
+
     await prisma.product.create({
       data: {...parsed.data, userId},
     });
+
+    return {
+      success: true,
+      message: "Product created successfully.",
+    };
   } catch (e) {
-    console.error("Prisma error: ", e);
-    throw new Error("Failed to create product");
+    const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+    return {
+      success: false,
+      message: `Failed to create product: ${errorMessage}`,
+    };
   }
-  redirect("/inventory");
 };
 
 export const updateProduct = async (formData: FormData) => {
