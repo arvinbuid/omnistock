@@ -1,10 +1,8 @@
 import { prisma } from "@/lib/client";
 import { getCurrentUser } from "@/lib/auth";
-import { SquarePen, TrashIcon } from "lucide-react";
-import { deleteProduct } from "@/lib/actions/products";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
-import Link from "next/link";
+import DeleteProduct from "./DeleteProduct";
 
 const Inventory = async ({ searchParams }: {
     searchParams: Promise<{
@@ -33,11 +31,6 @@ const Inventory = async ({ searchParams }: {
     ])
 
     const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
-
-    const handleFormSubmit = async (formData: FormData) => {
-        'use server'
-        await deleteProduct(formData)
-    }
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/inventory" />
@@ -91,20 +84,7 @@ const Inventory = async ({ searchParams }: {
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.lowStockAt || '-'}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">
-                                                <form action={handleFormSubmit}>
-                                                    <input type="hidden" name="id" value={product.id}></input>
-                                                    <div className="flex items-center gap-2">
-                                                        <button type='submit' className="p-2 rounded-md bg-red-600 text-white cursor-pointer">
-                                                            <TrashIcon className="w-3.5 h-3.5 font-bold" />
-                                                        </button>
-                                                        <Link
-                                                            href={`/edit-product/${product.id}`}
-                                                            className="p-2 rounded-md bg-yellow-600 text-white cursor-pointer"
-                                                        >
-                                                            <SquarePen className="w-3.5 h-3.5 font-bold" />
-                                                        </Link>
-                                                    </div>
-                                                </form>
+                                                <DeleteProduct productId={product.id} />
                                             </td>
                                         </tr>
                                     ))}

@@ -5,6 +5,7 @@ import {getCurrentUser} from "../auth";
 import {prisma} from "../client";
 import {convertToPlainObject} from "../utils";
 import {ProductSchema, ProductUpdateSchema} from "../validators";
+import {revalidatePath} from "next/cache";
 
 export const getProductById = async (productId: string) => {
   const product = await prisma.product.findFirst({where: {id: productId}});
@@ -80,14 +81,29 @@ export const updateProduct = async (formData: FormData) => {
 };
 
 export const deleteProduct = async (formData: FormData) => {
-  const user = await getCurrentUser();
-  const userId = user.id;
-  const id = formData.get("id") as string;
+  try {
+    const user = await getCurrentUser();
+    const userId = user.id;
+    const id = formData.get("id") as string;
 
-  await prisma.product.deleteMany({
-    where: {
-      id,
-      userId,
-    },
-  });
+    await prisma.product.deleteMany({
+      where: {
+        id,
+        userId,
+      },
+    });
+
+    revalidatePath("/inventory");
+
+    return {
+      success: true,
+      message: "Product deleted successfully.",
+    };
+  } catch (e) {
+    const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+    return {
+      success: false,
+      message: `Failed to delete product: ${errorMessage}`,
+    };
+  }
 };
