@@ -1,9 +1,14 @@
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/client";
 import { TrendingUp } from "lucide-react";
-import Sidebar from "../components/sidebar";
+import { Metadata } from "next";
 import { formatCurrency } from "@/lib/utils";
+import Sidebar from "../components/sidebar";
 import ProductsChart from "../components/products-chart";
+
+export const metadata: Metadata = {
+    title: 'Omnistock | Dashboard'
+}
 
 const Dashboard = async () => {
     // Get the current user

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import UpdateProduct from "./UpdateProduct";
 
 export const metadata: Metadata = {
-    title: 'Update Product'
+    title: 'Omnistock | Update Product'
 }
 
 const EditProduct = async (props: {

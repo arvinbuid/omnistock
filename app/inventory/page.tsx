@@ -1,9 +1,14 @@
 import { prisma } from "@/lib/client";
 import { getCurrentUser } from "@/lib/auth";
 import { formatCurrency } from "@/lib/utils";
+import { Metadata } from "next";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
 import DeleteProduct from "./DeleteProduct";
+
+export const metadata: Metadata = {
+    title: 'Omnistock | Inventory'
+}
 
 const Inventory = async ({ searchParams }: {
     searchParams: Promise<{

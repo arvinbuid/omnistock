@@ -1,5 +1,10 @@
 import { AccountSettings } from "@stackframe/stack";
+import { Metadata } from "next";
 import Sidebar from "../components/sidebar";
+
+export const metadata: Metadata = {
+    title: 'Omnistock | Settings'
+}
 
 const Settings = () => {
     return (
