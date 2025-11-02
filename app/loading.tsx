@@ -24,10 +24,11 @@ function LoadingSidebar() {
   return (
     <div className="fixed left-0 top-0 min-h-screen text-white w-64 bg-gray-800 p-6 z-10">
       {/* Sidebar Logo */}
-      <div className="mb-8">
-        <div className="flex items-center mb-4 gap-2 px-2">
+      <div className="mb-8 mt-3">
+        <div className="flex items-center gap-2 px-2 relative">
           <BarChart3 className="w-6 h-6" />
           <h1>OmniStock</h1>
+          <span className="rotate-45 text-2xl absolute -top-3.5 right-0 cursor-pointer">+</span>
         </div>
       </div>
       {/* Nav Links */}
