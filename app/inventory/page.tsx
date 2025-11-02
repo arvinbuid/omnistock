@@ -56,7 +56,7 @@ const Inventory = async ({ searchParams }: {
                                 type="text"
                                 name="q"
                                 placeholder="Search products..."
-                                className="px-4 py-3 border border-gray-300 rounded-md focus:outline-gray-400 text-gray-400 flex-1 text-sm"
+                                className="px-4 py-3 border border-gray-300 rounded-md focus:outline-gray-400 text-gray-800 flex-1 text-sm"
                             />
                             <button type="submit" className='px-4 py-3.5 text-white bg-violet-700 rounded-md uppercase text-xs cursor-pointer hover:bg-violet-800 transition-colors focus:outline-violet-800'>Search</button>
                         </form>
