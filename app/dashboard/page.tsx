@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/client";
 import { TrendingUp } from "lucide-react";
 import Sidebar from "../components/sidebar";
+import { formatCurrency } from "@/lib/utils";
 import ProductsChart from "../components/products-chart";
 
 const Dashboard = async () => {
@@ -99,7 +100,7 @@ const Dashboard = async () => {
                             </div>
                             {/* Total Value */}
                             <div className="text-center">
-                                <h1 className="text-2xl font-bold"><span className="text-lg">₱</span>{Number(totalValue).toFixed(0)}</h1>
+                                <h1 className="text-2xl font-bold">{formatCurrency(totalValue)}</h1>
                                 <p className="text-sm">Total Value</p>
                                 <div className="flex items-center justify-center gap-1 text-sm text-green-600">
                                     <span>+{Number(totalValue).toFixed(0)}</span>

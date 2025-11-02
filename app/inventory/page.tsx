@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/client";
 import { getCurrentUser } from "@/lib/auth";
+import { formatCurrency } from "@/lib/utils";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
 import DeleteProduct from "./DeleteProduct";
@@ -80,7 +81,7 @@ const Inventory = async ({ searchParams }: {
                                         <tr key={index} className="even:bg-gray-100 odd:bg-white">
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.name}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.sku || '-'}</td>
-                                            <td className="px-6 py-3 text-sm text-gray-800">₱{Number(product.price).toFixed(2)}</td>
+                                            <td className="px-6 py-3 text-sm text-gray-800">{formatCurrency(Number(product.price))}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.lowStockAt || '-'}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">
