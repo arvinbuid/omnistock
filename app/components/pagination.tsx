@@ -43,7 +43,7 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
 
     return (
         <nav className="flex items-center justify-center overflow-x-auto py-2 px-1">
-            <div className="flex gap-3 w-full justify-center">
+            <div className="flex gap-3 w-full justify-normal sm:justify-center">
                 <Link
                     href={getPageUrl(currentPage - 1)}
                     className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage <= 1 ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}

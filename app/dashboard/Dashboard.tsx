@@ -25,7 +25,7 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/dashboard" />
 
-            <main className={`p-6 ${isOpen ? 'ml-64' : 'ml-16'}`}>
+            <main className={`p-6 transition-all ease-in-out duration-300 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between">

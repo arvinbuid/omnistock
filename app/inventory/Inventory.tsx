@@ -30,7 +30,7 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/inventory" />
-            <main className={`p-6 ${isOpen ? 'ml-64' : 'ml-16'} overflow-hidden`}>
+            <main className={`p-6 transition-all ease-in-out duration-300 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 <div className="mb-8">
                     <div className="flex items-center justify-between">
                         <div>
