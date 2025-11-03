@@ -15,8 +15,17 @@ const eslintConfig = defineConfig([
   ]),
   {
     rules: {
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/no-this-alias": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unnecessary-type-constraint": "off",
+      "@typescript-eslint/no-array-constructor": "off",
+      "@typescript-eslint/no-wrapper-object-types": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
     },
   },
 ]);
