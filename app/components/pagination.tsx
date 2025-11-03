@@ -42,35 +42,37 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
     const visiblePages = getVisiblePages();
 
     return (
-        <nav className="flex items-center justify-center gap-3">
-            <Link
-                href={getPageUrl(currentPage - 1)}
-                className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage <= 1 ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
-                aria-disabled={currentPage <= 1}
-            >
-                <ChevronLeft className="w-6 h-6" /> Prev
-            </Link>
-            {visiblePages.map((page, index) => {
-                if (page === '...') return <span key={index} className="text-gray-500">...</span>
-                const pageNumber = page as number;
-                const isCurrentPage = currentPage === pageNumber;
-                return (
-                    <Link
-                        key={index}
-                        href={getPageUrl(pageNumber)}
-                        className={`px-3 py-2 rounded-md shadow ${isCurrentPage ? 'bg-violet-600 text-white' : 'bg-white text-gray-900'}`}
-                    >
-                        {page}
-                    </Link>
-                )
-            })}
-            <Link
-                href={getPageUrl(currentPage + 1)}
-                className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage >= totalPages ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
-                aria-disabled={currentPage >= totalPages}
-            >
-                Next <ChevronRight />
-            </Link>
+        <nav className="flex items-center justify-center overflow-x-auto">
+            <div className="flex gap-3">
+                <Link
+                    href={getPageUrl(currentPage - 1)}
+                    className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage <= 1 ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
+                    aria-disabled={currentPage <= 1}
+                >
+                    <ChevronLeft className="w-6 h-6" /> Prev
+                </Link>
+                {visiblePages.map((page, index) => {
+                    if (page === '...') return <span key={index} className="text-gray-500">...</span>
+                    const pageNumber = page as number;
+                    const isCurrentPage = currentPage === pageNumber;
+                    return (
+                        <Link
+                            key={index}
+                            href={getPageUrl(pageNumber)}
+                            className={`px-3 py-2 rounded-md shadow ${isCurrentPage ? 'bg-violet-600 text-white' : 'bg-white text-gray-900'}`}
+                        >
+                            {page}
+                        </Link>
+                    )
+                })}
+                <Link
+                    href={getPageUrl(currentPage + 1)}
+                    className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage >= totalPages ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
+                    aria-disabled={currentPage >= totalPages}
+                >
+                    Next <ChevronRight />
+                </Link>
+            </div>
         </nav>
     );
 }
