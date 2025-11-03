@@ -3,6 +3,7 @@
 import { startTransition, useRef } from "react";
 import { createProduct } from "@/lib/actions/products";
 import { useRouter } from "next/navigation";
+import { useSidebar } from "../context/SidebarContext";
 import Sidebar from "../components/sidebar";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -10,6 +11,7 @@ import toast from "react-hot-toast";
 const AddProductForm = () => {
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
+    const { isOpen } = useSidebar();
 
     const handleSubmit = (formData: FormData) => {
         startTransition(async () => {
@@ -29,7 +31,7 @@ const AddProductForm = () => {
         <div className="min-h-screen bg-gray-50">
             <Sidebar currentPath="/add-product" />
 
-            <main className="ml-64 p-6">
+            <main className={`p-6 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-6">
                         <div>
@@ -41,7 +43,7 @@ const AddProductForm = () => {
                         <div className="bg-white p-6 border border-gray-200 rounded-lg shadow">
                             <form
                                 ref={formRef}
-                                className="space-y-6"
+                                className="space-y-4"
                                 action={handleSubmit}
                             >
                                 {/* Product Name */}
@@ -127,13 +129,13 @@ const AddProductForm = () => {
                                     />
                                 </div>
                                 {/* Submit and Cancel Buttons */}
-                                <div className="flex items-center gap-3 mt-4">
-                                    <button type="submit" className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer">
+                                <div className="flex flex-col md:flex-row items-center gap-3 mt-4">
+                                    <button type="submit" className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer w-full md:w-auto">
                                         Add Product
                                     </button>
                                     <Link
                                         href='/add-product'
-                                        className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm cursor-pointer"
+                                        className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm text-center cursor-pointer w-full md:w-auto"
                                     >
                                         Cancel
                                     </Link>
