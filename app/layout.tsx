@@ -4,6 +4,7 @@ import { stackClientApp } from "../stack/client";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { SidebarProvider } from "./context/SidebarContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,7 +39,9 @@ export default function RootLayout({
         <StackProvider app={stackClientApp}>
           <StackTheme>
             <Toaster />
-            {children}
+            <SidebarProvider>
+              {children}
+            </SidebarProvider>
           </StackTheme>
         </StackProvider></body>
     </html>
