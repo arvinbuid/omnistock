@@ -23,9 +23,31 @@ model Product {
   quantity   Int     @default(0)
   lowStockAt Int?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  StockMovement StockMovement[]
 
   @@index([userId, name])
+  @@index([createdAt])
+}
+
+model StockMovement {
+  id             String @id @default(cuid())
+  productId      String
+  userId         String
+  type           String // RECEIVE, ISSUE, COUNT
+  quantityChange Int
+  reason         String @db.VarChar(255)
+
+  stockBefore Int
+  stockAfter  Int
+
+  createdAt DateTime @default(now())
+
+  // Relationships
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@index([userId])
   @@index([createdAt])
 }
