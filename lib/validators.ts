@@ -8,6 +8,12 @@ export const ProductSchema = z.object({
   lowStockAt: z.coerce.number().int().min(0).optional(),
 });
 
-export const ProductUpdateSchema = ProductSchema.extend({
+export const ProductUpdateSchema = ProductSchema.omit({
+  quantity: true,
+}).extend({
   id: z.string().min(1, "Product id is required"),
+  name: z.string().min(3, "Product name must be at least 3 characters long"),
+  price: z.coerce.number().nonnegative("Price must be a positive number"),
+  sku: z.string().optional(),
+  lowStockAt: z.coerce.number().int().min(0).optional(),
 });

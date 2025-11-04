@@ -49,7 +49,6 @@ export const updateProduct = async (formData: FormData) => {
       id: formData.get("id"),
       name: formData.get("name"),
       price: formData.get("price"),
-      quantity: formData.get("quantity"),
       sku: formData.get("sku") || undefined,
       lowStockAt: formData.get("lowStockAt") || undefined,
     });

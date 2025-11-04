@@ -50,7 +50,7 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                     required
                 />
             </div>
-            {/* Price and Quantity */}
+            {/* Price ^ Sku */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label
@@ -71,36 +71,19 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                 </div>
                 <div>
                     <label
-                        htmlFor="quantity"
+                        htmlFor="sku"
                         className="block text-sm font-medium text-gray-700 mb-2"
                     >
-                        Quantity
+                        SKU (Optional)
                     </label>
                     <input
-                        type="number"
-                        id="quantity"
-                        name="quantity"
-                        defaultValue={product.quantity}
-                        className="text-sm px-4 py-2 text-gray-700 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
-                        required
+                        type="text"
+                        id="sku"
+                        name="sku"
+                        defaultValue={product.sku || ''}
+                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
                     />
                 </div>
-            </div>
-            {/* Sku */}
-            <div>
-                <label
-                    htmlFor="sku"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                    SKU (Optional)
-                </label>
-                <input
-                    type="text"
-                    id="sku"
-                    name="sku"
-                    defaultValue={product.sku || ''}
-                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
-                />
             </div>
             {/* Low Stock Threshold*/}
             <div>
