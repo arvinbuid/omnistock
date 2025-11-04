@@ -63,6 +63,7 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                         type="number"
                         id="price"
                         name="price"
+                        step="0.01"
                         defaultValue={Number(product.price)}
                         className="text-sm px-4 py-2 text-gray-700 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
                         required
