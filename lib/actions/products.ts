@@ -123,7 +123,7 @@ export const adjustStock = async (formData: FormData) => {
     const parsed = StockAdjustmentSchema.safeParse({
       productId: formData.get("productId"),
       adjustmentType: formData.get("adjustmentType"),
-      quantity: formData.get("quantity"),
+      quantity: formData.get("newQuantity"),
       reason: formData.get("reason"),
     });
 

@@ -6,6 +6,7 @@ import { useSidebar } from "../context/SidebarContext";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
 import ProductActions from "./ProductActions";
+import StockAdjustment from "./StockAdjustment";
 
 interface InventoryPageProps {
     items: {
@@ -28,7 +29,7 @@ interface InventoryPageProps {
 const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPageProps) => {
     const { isOpen } = useSidebar();
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 relative">
             <Sidebar currentPath="/inventory" />
             <main className={`p-6 transition-all ease-in-out duration-300 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 <div className="mb-8">
@@ -80,7 +81,10 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.lowStockAt || '-'}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">
-                                                <ProductActions productId={product.id} />
+                                                <div className="flex items-center gap-2">
+                                                    <ProductActions productId={product.id} />
+                                                    <StockAdjustment productId={product.id} name={product.name} quantity={product.quantity} />
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}
