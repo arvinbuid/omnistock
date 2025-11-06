@@ -16,7 +16,6 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
 
     const handleSubmitForm = (formData: FormData) => {
         startTransition(async () => {
-            console.log(formData)
             const res = await adjustStock(formData);
 
             if (res.success) {
