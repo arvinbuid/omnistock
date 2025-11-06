@@ -5,7 +5,7 @@ import { SquarePen, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
-interface DeleteProductProps {
+interface ProductActionsProps {
     productId: string
 }
 
@@ -18,7 +18,7 @@ const handleFormSubmit = async (formData: FormData) => {
     }
 }
 
-const DeleteProduct = ({ productId }: DeleteProductProps) => {
+const ProductActions = ({ productId }: ProductActionsProps) => {
     return (
         <form action={handleFormSubmit}>
             <input type="hidden" name="id" value={productId}></input>
@@ -37,4 +37,4 @@ const DeleteProduct = ({ productId }: DeleteProductProps) => {
     );
 }
 
-export default DeleteProduct;
+export default ProductActions;

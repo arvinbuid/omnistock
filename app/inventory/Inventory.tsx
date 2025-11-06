@@ -2,10 +2,10 @@
 
 import { formatCurrency } from "@/lib/utils";
 import { Decimal } from "@prisma/client/runtime/client";
-import DeleteProduct from "./DeleteProduct";
 import { useSidebar } from "../context/SidebarContext";
 import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
+import ProductActions from "./ProductActions";
 
 interface InventoryPageProps {
     items: {
@@ -80,7 +80,7 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.lowStockAt || '-'}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">
-                                                <DeleteProduct productId={product.id} />
+                                                <ProductActions productId={product.id} />
                                             </td>
                                         </tr>
                                     ))}
