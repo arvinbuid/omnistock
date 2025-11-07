@@ -7,6 +7,7 @@ import Sidebar from "../components/sidebar";
 import Pagination from "../components/pagination";
 import ProductActions from "./ProductActions";
 import StockAdjustment from "./StockAdjustment";
+import Link from "next/link";
 
 interface InventoryPageProps {
     items: {
@@ -85,7 +86,11 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                 <tbody className='bg-white divide-y divide-gray-200'>
                                     {items.map((product, index) => (
                                         <tr key={index} className="even:bg-gray-100 odd:bg-white">
-                                            <td className="px-6 py-3 text-sm text-gray-800">{product.name}</td>
+                                            <td className="px-6 py-3 text-sm text-gray-800">
+                                                <Link href={`/inventory/${product.id}`}>
+                                                    {product.name}
+                                                </Link>
+                                            </td>
                                             <td>
                                                 <div className="flex items-center justify-center">
                                                     <span className={`${BASE_STYLES} ${STATUS_STYLES[product.status as keyof typeof STATUS_STYLES]}`}>
