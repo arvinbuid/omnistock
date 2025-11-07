@@ -33,7 +33,7 @@ const STATUS_STYLES = {
     'Out of Stock': 'bg-red-600 text-white',
 }
 
-const BASE_STYLES = 'w-20 p-1 text-center text-xs rounded-full border-none'
+const BASE_STYLES = 'w-24 p-2 text-center text-xs rounded-full border-none'
 
 const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPageProps) => {
     const { isOpen } = useSidebar();
