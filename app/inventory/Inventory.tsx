@@ -19,12 +19,21 @@ interface InventoryPageProps {
         lowStockAt: number | null;
         createdAt: Date;
         updatedAt: Date;
+        status: string
     }[],
     totalPages: number,
     page: number,
     q: string,
     pageSize: number
 }
+
+const STATUS_STYLES = {
+    'In Stock': 'bg-green-600 text-white',
+    'Low Stock': 'bg-yellow-600 text-white',
+    'Out of Stock': 'bg-red-600 text-white',
+}
+
+const BASE_STYLES = 'w-20 p-1 text-center text-xs rounded-full border-none'
 
 const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPageProps) => {
     const { isOpen } = useSidebar();
@@ -65,6 +74,7 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                 <thead className="border-b border-gray-200">
                                     <tr className="font-mono">
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Name</th>
+                                        <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Status</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Sku</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Price</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Quantity</th>
@@ -76,6 +86,13 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                     {items.map((product, index) => (
                                         <tr key={index} className="even:bg-gray-100 odd:bg-white">
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.name}</td>
+                                            <td>
+                                                <div className="flex items-center justify-center">
+                                                    <span className={`${BASE_STYLES} ${STATUS_STYLES[product.status as keyof typeof STATUS_STYLES]}`}>
+                                                        {product.status}
+                                                    </span>
+                                                </div>
+                                            </td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.sku || '-'}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{formatCurrency(Number(product.price))}</td>
                                             <td className="px-6 py-3 text-sm text-gray-800">{product.quantity}</td>

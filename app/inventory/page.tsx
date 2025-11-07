@@ -31,12 +31,27 @@ const InventoryWrapper = async ({ searchParams }: {
             orderBy: { createdAt: 'desc' },
             skip: (page - 1) * pageSize,
             take: pageSize
-        })
+        }),
     ])
+
+    // product status
+    type Status = 'Low Stock' | 'In Stock' | 'Out of Stock';
+
+    const getProductStatus = (quantity: number, lowStockAt: number | null): Status => {
+        if (quantity <= 0) return 'Out of Stock'
+        const threshold = lowStockAt ?? 0;
+        if (quantity <= threshold) return 'Low Stock'
+        return 'In Stock'
+    }
+
+    const itemsWithStatus = items.map((item) => ({
+        ...item,
+        status: getProductStatus(item.quantity, item.lowStockAt)
+    }))
 
     const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
     return (
-        <InventoryPage items={convertToPlainObject(items)} totalPages={totalPages} page={page} q={q} pageSize={pageSize} />
+        <InventoryPage items={convertToPlainObject(itemsWithStatus)} totalPages={totalPages} page={page} q={q} pageSize={pageSize} />
     );
 }
 
