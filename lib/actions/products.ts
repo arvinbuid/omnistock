@@ -7,8 +7,20 @@ import {ProductSchema, ProductUpdateSchema, StockAdjustmentSchema} from "../vali
 import {revalidatePath} from "next/cache";
 
 export const getProductById = async (productId: string) => {
-  const product = await prisma.product.findFirst({where: {id: productId}});
-  return convertToPlainObject(product);
+  const product = await prisma.product.findUnique({
+    where: {id: productId},
+    include: {
+      StockMovement: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
+  });
+  if (!product) throw new Error("Product not found!");
+  const {StockMovement, ...prevProduct} = product;
+  const updatedProduct = {...prevProduct, stockMovement: StockMovement};
+  return convertToPlainObject(updatedProduct);
 };
 
 export const createProduct = async (formData: FormData) => {
@@ -139,7 +151,7 @@ export const adjustStock = async (formData: FormData) => {
     await prisma.$transaction(async (tx) => {
       // Fetch current product
       const product = await tx.product.findUniqueOrThrow({
-        where: {id: productId},
+        where: {id: productId, userId},
       });
 
       const stockBefore = product.quantity;
@@ -180,6 +192,8 @@ export const adjustStock = async (formData: FormData) => {
         },
       });
     });
+
+    revalidatePath("/inventory");
 
     return {
       success: true,
