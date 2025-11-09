@@ -3,6 +3,7 @@
 import { useSidebar } from "@/app/context/SidebarContext";
 import { Product } from "@/lib/types";
 import Sidebar from "@/app/components/sidebar";
+import Link from "next/link";
 
 type ProductWithStockMovement = Product & {
     stockMovement: Array<{
@@ -31,7 +32,15 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
             <main className={`p-6 transition-all ease-in-out duration-300 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 {/* Header */}
                 <div className="mb-8">
-                    <div className="flex items-center justify-between">
+                    {/* Back Button */}
+                    <Link
+                        href="/inventory"
+                        className="text-sm text-blue-600 cursor-pointer"
+                    >
+                        &larr; Back
+                    </Link>
+
+                    <div className="flex items-center justify-between mt-4">
                         <div>
                             <h1 className="text-2xl font-semibold text-gray-900">Audit Logs</h1>
                             <p className="text-sm text-gray-500 mt-1">Here are the audit logs for the product&apos;s stock movement</p>

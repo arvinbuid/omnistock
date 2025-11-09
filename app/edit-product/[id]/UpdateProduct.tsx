@@ -37,7 +37,14 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
             <Sidebar currentPath="/inventory" />
             <main className={`p-6 transition-all ease-in-out duration-300 ${isOpen ? 'ml-64' : 'ml-16'}`}>
                 <div className="mb-8">
-                    <div className="flex items-center justify-between">
+                    {/* Back Button */}
+                    <Link
+                        href="/inventory"
+                        className="text-sm text-blue-600 cursor-pointer"
+                    >
+                        &larr; Back
+                    </Link>
+                    <div className="flex items-center justify-between mt-4">
                         <div>
                             <h1 className="text-2xl font-semibold text-gray-900">Update Product</h1>
                             <p className="text-sm text-gray-500 mt-1">Edit the product information below.</p>
