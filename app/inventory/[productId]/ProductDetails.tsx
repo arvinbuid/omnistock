@@ -48,7 +48,6 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Before</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock After</th>
-                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User ID</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
                             </tr>
                         </thead>
@@ -76,10 +75,6 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                                     {/* Stock Before */}
                                     <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                         {movement.stockBefore}
-                                    </td>
-                                    {/* Stock After */}
-                                    <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                        {movement.stockAfter}
                                     </td>
                                     {/* Stock After */}
                                     <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
