@@ -29,12 +29,12 @@ interface InventoryPageProps {
 }
 
 const STATUS_STYLES = {
-    'In Stock': 'bg-green-600 text-white',
-    'Low Stock': 'bg-yellow-600 text-white',
-    'Out of Stock': 'bg-red-600 text-white',
+    'In Stock': 'bg-green-300 text-green-800',
+    'Low Stock': 'bg-yellow-300 text-yellow-800',
+    'Out of Stock': 'bg-red-300 text-red-800',
 }
 
-const BASE_STYLES = 'w-24 p-2 text-center text-xs rounded-full border-none'
+const BASE_STYLES = 'px-2 inline-flex text-xs leading-6 rounded-full uppercase font-semibold'
 
 const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPageProps) => {
     const { isOpen } = useSidebar();
