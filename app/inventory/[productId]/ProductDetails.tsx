@@ -43,7 +43,7 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                     <div className="flex items-center justify-between mt-4">
                         <div>
                             <h1 className="text-2xl font-semibold text-gray-900">Audit Logs</h1>
-                            <p className="text-sm text-gray-500 mt-1">Here are the audit logs for the product&apos;s stock movement</p>
+                            <p className="text-sm text-gray-500 mt-1">Here are the audit logs for the product&apos;s stock movement.</p>
                         </div>
                     </div>
                 </div>
@@ -52,12 +52,12 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr className="font-mono">
-                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Date & Time</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
-                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Before</th>
-                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock After</th>
-                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Stock Before</th>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Stock After</th>
+                                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Reason</th>
                             </tr>
                         </thead>
 

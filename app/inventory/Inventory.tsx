@@ -34,7 +34,7 @@ const STATUS_STYLES = {
     'Out of Stock': 'bg-red-300 text-red-800',
 }
 
-const BASE_STYLES = 'px-2 inline-flex text-xs leading-6 rounded-full uppercase font-semibold'
+const BASE_STYLES = 'px-2 inline-flex text-xs leading-6 rounded-full uppercase font-semibold whitespace-nowrap'
 
 const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPageProps) => {
     const { isOpen } = useSidebar();
@@ -86,7 +86,7 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                 <tbody className='bg-white divide-y divide-gray-200'>
                                     {items.map((product, index) => (
                                         <tr key={index} className="even:bg-gray-100 odd:bg-white">
-                                            <td className="px-6 py-3 text-sm text-gray-800">
+                                            <td className="px-6 py-3 text-sm text-gray-800 whitespace-nowrap">
                                                 <Link href={`/inventory/${product.id}`}>
                                                     {product.name}
                                                 </Link>
