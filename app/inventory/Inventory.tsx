@@ -113,8 +113,8 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                 </tbody>
                             </table>
                         ) : (
-                            <div className="p-4">
-                                <p className="text-gray-500 text-sm">No products found.</p>
+                            <div className="px-6 py-4">
+                                <p className="text-sm text-gray-700">No products found.</p>
                             </div>
                         )}
                     </div>

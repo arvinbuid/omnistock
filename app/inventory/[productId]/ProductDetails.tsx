@@ -98,6 +98,11 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                         </tbody>
                     </table>
 
+                    {product.stockMovement.length <= 0 && (
+                        <div className="px-6 py-4">
+                            <p className="text-sm text-gray-700">No audit logs available.</p>
+                        </div>
+                    )}
                 </div>
             </main>
         </div>
