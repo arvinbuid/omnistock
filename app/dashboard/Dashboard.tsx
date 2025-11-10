@@ -38,7 +38,7 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                     {/* Key Metrics */}
-                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-mono">
+                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-roboto tracking-wide">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6">Key Metrics</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                             {/* Total Products */}
@@ -72,7 +72,7 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
                     </div>
 
                     {/* New Products per Week */}
-                    <div className="p-6 border border-gray-200 shadow bg-white rounded-lg font-mono">
+                    <div className="p-6 border border-gray-200 shadow bg-white rounded-lg font-roboto tracking-wide">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6">New Products per week</h2>
                         <div className="h-48">
                             <ProductsChart data={weeklyProductsData} />
@@ -82,7 +82,7 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
 
                 {/* Stock Value */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-mono">
+                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-roboto tracking-wide">
                         <h2 className="text-xl font-semibold mb-6">Stock Levels</h2>
                         <div className="space-y-4">
                             {recent.map((product, index) => {
@@ -106,7 +106,7 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
                     </div>
 
                     {/* Efficiency */}
-                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-mono">
+                    <div className="p-6 border border-gray-200 bg-white shadow rounded-lg font-roboto tracking-wide">
                         <h2 className="text-xl font-semibold mb-6">Efficiency</h2>
                         <div className="flex items-center justify-center">
                             <div className="relative w-48 h-48">
