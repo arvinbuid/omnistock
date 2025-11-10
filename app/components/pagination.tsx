@@ -42,14 +42,14 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
     const visiblePages = getVisiblePages();
 
     return (
-        <nav className="flex items-center justify-center overflow-x-auto py-2 px-1">
-            <div className="flex gap-3 w-full justify-normal sm:justify-center">
+        <nav className="flex items-center justify-center overflow-x-auto p-2">
+            <div className="flex justify-normal sm:justify-center items-center gap-2 w-full">
                 <Link
                     href={getPageUrl(currentPage - 1)}
-                    className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage <= 1 ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
+                    className={`flex items-center justify-center w-10 h-10 text-sm rounded-full shadow border border-gray-200 ${currentPage <= 1 ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
                     aria-disabled={currentPage <= 1}
                 >
-                    <ChevronLeft className="w-6 h-6" /> Prev
+                    <ChevronLeft size={18} />
                 </Link>
                 {visiblePages.map((page, index) => {
                     if (page === '...') return <span key={index} className="text-gray-500">...</span>
@@ -59,7 +59,7 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
                         <Link
                             key={index}
                             href={getPageUrl(pageNumber)}
-                            className={`px-3 py-2 rounded-md shadow ${isCurrentPage ? 'bg-violet-600 text-white' : 'bg-white text-gray-900'}`}
+                            className={`flex items-center justify-center w-10 h-10 text-sm rounded-full shadow ${isCurrentPage ? 'bg-violet-600 text-white' : 'bg-white text-gray-900'}`}
                         >
                             {page}
                         </Link>
@@ -67,10 +67,10 @@ const Pagination = ({ currentPage, totalPages, baseUrl, searchParams }: Paginati
                 })}
                 <Link
                     href={getPageUrl(currentPage + 1)}
-                    className={`flex items-center gap-1 text-sm px-3 py-2 rounded-md shadow border border-gray-200 ${currentPage >= totalPages ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
+                    className={`flex items-center justify-center w-10 h-10 text-sm rounded-full shadow border border-gray-200 ${currentPage >= totalPages ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white text-gray-900'}`}
                     aria-disabled={currentPage >= totalPages}
                 >
-                    Next <ChevronRight />
+                    <ChevronRight size={18} />
                 </Link>
             </div>
         </nav>
