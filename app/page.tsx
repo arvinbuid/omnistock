@@ -12,14 +12,14 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 w-full">
         {/* Left Section */}
         <div className="flex flex-col justify-center items-center">
-          <div className=" max-w-md pl-12 pr-6 space-y-5">
-            <h1 className="text-violet-800 text-4xl md:text-5xl font-mono pl-2 font-semibold">Omnistock</h1>
-            <p className="text-lg: md:text-xl">A powerful modern solution designed to improve how you track, manage, and optimize your entire stock lifecycle.</p>
+          <div className=" max-w-lg pl-12 pr-6 space-y-4">
+            <h1 className="text-violet-800 text-[3rem] lg:text-[3.5rem] tracking-wide inline-block font-semibold">Omnistock</h1>
+            <p className="text-lg md:text-xl tracking-wide">A powerful modern solution designed to improve how you track, manage, and optimize your entire stock lifecycle.</p>
             <Link href='/dashboard'>
               <button
-                className="px-10 py-3 text-white bg-[#6C63FF] rounded-lg uppercase font-mono cursor-pointer text-sm md:text-md lg:text-lg hover:bg-[#524dc2] transition-colors ease-in"
+                className="px-10 py-3 text-white bg-[#6C63FF] rounded-full mt-4"
               >
-                Get Started
+                <span className="uppercase font-mono cursor-pointer text-lg hover:bg-[#524dc2] transition-colors ease-in leading-5 sm:leading-6">Get Started</span>
               </button>
             </Link>
           </div>
@@ -31,7 +31,7 @@ export default function Home() {
             alt="picture"
             width={0}
             height={0}
-            className="w-[550px] h-auto"
+            className="w-auto px-4"
 
           />
         </div>
