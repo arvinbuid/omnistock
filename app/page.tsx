@@ -17,9 +17,9 @@ export default function Home() {
             <p className="text-lg md:text-xl tracking-wide">A powerful modern solution designed to improve how you track, manage, and optimize your entire stock lifecycle.</p>
             <Link href='/dashboard'>
               <button
-                className="px-10 py-3 text-white bg-[#6C63FF] rounded-full mt-4"
+                className="px-10 py-3 text-white bg-[#6C63FF] hover:bg-[#524dc2] transition-colors ease-in rounded-full mt-4  cursor-pointer"
               >
-                <span className="uppercase font-mono cursor-pointer text-lg hover:bg-[#524dc2] transition-colors ease-in leading-5 sm:leading-6">Get Started</span>
+                <span className="uppercase font-roboto tracking-wider text-lg leading-5 sm:leading-6">Get Started</span>
               </button>
             </Link>
           </div>
