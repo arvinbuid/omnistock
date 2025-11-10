@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
 import { StackProvider, StackTheme } from "@stackframe/stack";
 import { stackClientApp } from "../stack/client";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
+import { Inter, Roboto } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { SidebarProvider } from "./context/SidebarContext";
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
 });
 
@@ -34,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
+        className={`${roboto.variable} ${inter.variable} antialiased`}
       >
         <StackProvider app={stackClientApp}>
           <StackTheme>

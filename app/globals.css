@@ -8,9 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --font-inter: var(--font-inter);
+  --font-roboto: var(--font-roboto);
 }
 @utility rectangle-top {
   clip-path: polygon(0 0, 100% 0, 0 75%);

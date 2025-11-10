@@ -49,9 +49,9 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                 </div>
 
                 <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                    <table className="w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
-                            <tr className="font-mono">
+                            <tr className="font-roboto tracking-wide">
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Date & Time</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
@@ -63,13 +63,13 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
 
                         <tbody className="bg-white divide-y divide-gray-200">
                             {product.stockMovement.map((movement) => (
-                                <tr key={movement.id}>
+                                <tr key={movement.id} className="even:bg-gray-100 odd:bg-white">
                                     {/* Date & Time */}
-                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-600">
                                         {new Date(movement.createdAt).toLocaleString()}
                                     </td>
                                     {/* Type (Badge) */}
-                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    <td>
                                         <span className={`px-2 inline-flex text-xs leading-6 font-semibold rounded-full 
                                                 ${movement.type === 'RECEIVE' ? 'bg-green-100 text-green-800' :
                                                 movement.type === 'ISSUE' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}`}
@@ -78,19 +78,19 @@ const ProductDetailsPage = ({ product }: ProductDetailsProps) => {
                                         </span>
                                     </td>
                                     {/* Change */}
-                                    <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    <td className={`px-6 py-3 whitespace-nowrap text-sm text-left ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                         {movement.quantityChange}
                                     </td>
                                     {/* Stock Before */}
-                                    <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    <td className={`px-6 py-3 whitespace-nowrap text-sm text-left ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                         {movement.stockBefore}
                                     </td>
                                     {/* Stock After */}
-                                    <td className={`px-4 py-3 whitespace-nowrap text-sm ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    <td className={`px-6 py-3 whitespace-nowrap text-sm text-left ${movement.quantityChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                         {movement.stockAfter}
                                     </td>
                                     {/* Reason */}
-                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    <td className="px-6 py-3 whitespace-nowrap text-sm text-left text-gray-600">
                                         {movement.reason}
                                     </td>
                                 </tr>

@@ -29,9 +29,9 @@ interface InventoryPageProps {
 }
 
 const STATUS_STYLES = {
-    'In Stock': 'bg-green-300 text-green-800',
-    'Low Stock': 'bg-yellow-300 text-yellow-800',
-    'Out of Stock': 'bg-red-300 text-red-800',
+    'In Stock': 'bg-green-200 text-green-800',
+    'Low Stock': 'bg-yellow-200 text-yellow-800',
+    'Out of Stock': 'bg-red-200 text-red-800',
 }
 
 const BASE_STYLES = 'px-2 inline-flex text-xs leading-6 rounded-full uppercase font-semibold whitespace-nowrap'
@@ -73,9 +73,9 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                         {items.length > 0 ? (
                             <table className="w-full">
                                 <thead className="border-b border-gray-200">
-                                    <tr className="font-mono">
+                                    <tr className="font-roboto tracking-wide">
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Name</th>
-                                        <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Status</th>
+                                        <th className="px-6 py-3 text-center uppercase font-medium text-gray-500 text-xs">Status</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Sku</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Price</th>
                                         <th className="px-6 py-3 text-left uppercase font-medium text-gray-500 text-xs">Quantity</th>
@@ -84,8 +84,8 @@ const InventoryPage = ({ items, totalPages, page, q, pageSize }: InventoryPagePr
                                     </tr>
                                 </thead>
                                 <tbody className='bg-white divide-y divide-gray-200'>
-                                    {items.map((product, index) => (
-                                        <tr key={index} className="even:bg-gray-100 odd:bg-white">
+                                    {items.map((product) => (
+                                        <tr key={product.id} className="even:bg-gray-100 odd:bg-white">
                                             <td className="px-6 py-3 text-sm text-gray-800 whitespace-nowrap">
                                                 <Link href={`/inventory/${product.id}`}>
                                                     {product.name}
