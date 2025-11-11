@@ -5,7 +5,11 @@ export const ProductSchema = z.object({
   price: z.coerce.number().nonnegative("Price must be a positive number"),
   quantity: z.coerce.number().int().min(0, "Quantity must be a positive number"),
   sku: z.string().optional(),
-  lowStockAt: z.coerce.number().int().min(0).optional(),
+  lowStockAt: z.coerce
+    .number()
+    .int()
+    .min(0, "Low Stock Threshold must be a positive number")
+    .optional(),
 });
 
 export const ProductUpdateSchema = ProductSchema.omit({

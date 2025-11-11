@@ -5,6 +5,7 @@ import {prisma} from "../client";
 import {convertToPlainObject} from "../utils";
 import {ProductSchema, ProductUpdateSchema, StockAdjustmentSchema} from "../validators";
 import {revalidatePath} from "next/cache";
+import z from "zod";
 
 export const getProductById = async (productId: string) => {
   const product = await prisma.product.findUnique({
@@ -23,23 +24,19 @@ export const getProductById = async (productId: string) => {
   return convertToPlainObject(updatedProduct);
 };
 
-export const createProduct = async (formData: FormData) => {
+export const createProduct = async (data: z.infer<typeof ProductSchema>) => {
   try {
     const user = await getCurrentUser();
     const userId = user.id;
-
-    const parsed = ProductSchema.safeParse({
-      name: formData.get("name"),
-      price: formData.get("price"),
-      quantity: formData.get("quantity"),
-      sku: formData.get("sku") || undefined,
-      lowStockAt: formData.get("lowStockAt") || undefined,
-    });
-
+    const parsed = ProductSchema.safeParse(data);
     if (!parsed.success) throw new Error("Validation failed!");
 
     await prisma.product.create({
-      data: {...parsed.data, userId},
+      data: {
+        ...parsed.data,
+        sku: parsed.data.sku === "" ? null : parsed.data.sku,
+        userId,
+      },
     });
 
     return {
