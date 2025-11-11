@@ -127,11 +127,11 @@ const DashboardPage = ({ totalProducts, totalValue, lowStock, weeklyProductsData
                         <div className="flex flex-col mt-8">
                             <div className="space-y-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 rounded-full bg-purple-300" />
+                                    <div className="w-3 h-3 rounded-full bg-purple-600" />
                                     <span className="text-sm text-gray-900">In Stock ({inStockPercentage})%</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 rounded-full bg-purple-600" />
+                                    <div className="w-3 h-3 rounded-full bg-purple-300" />
                                     <span className="text-sm text-gray-900">Low Stock ({lowStockPercentage})%</span>
                                 </div>
                                 <div className="flex items-center gap-3">
