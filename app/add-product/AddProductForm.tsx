@@ -18,7 +18,6 @@ const AddProductForm = () => {
     const router = useRouter();
     const { isOpen } = useSidebar();
 
-    // 
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ProductInput, any, FormOutput>({
         resolver: zodResolver(ProductSchema),
         defaultValues: {
