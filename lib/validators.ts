@@ -19,7 +19,11 @@ export const ProductUpdateSchema = ProductSchema.omit({
   name: z.string().min(3, "Product name must be at least 3 characters long"),
   price: z.coerce.number().nonnegative("Price must be a positive number"),
   sku: z.string().optional(),
-  lowStockAt: z.coerce.number().int().min(0).optional(),
+  lowStockAt: z.coerce
+    .number()
+    .int()
+    .min(0, "Low Stock Threshold must be a positive number")
+    .optional(),
 });
 
 export const AdjustmentType = z.enum(["RECEIVE", "ISSUE", "COUNT"]);

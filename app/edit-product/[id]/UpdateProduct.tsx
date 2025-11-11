@@ -2,34 +2,47 @@
 
 import { Product } from "@/lib/types";
 import { updateProduct } from "@/lib/actions/products";
-import { startTransition, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/app/context/SidebarContext";
+import { ProductUpdateSchema } from "@/lib/validators";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import Sidebar from "@/app/components/sidebar";
+import z from "zod";
 
 interface UpdateProductProps {
     product: Product
 }
 
+type ProductInput = z.input<typeof ProductUpdateSchema>
+type ProductOutput = z.output<typeof ProductUpdateSchema>
+
 const UpdateProduct = ({ product }: UpdateProductProps) => {
-    const formRef = useRef<HTMLFormElement>(null);
+    console.log(product)
     const router = useRouter();
     const { isOpen } = useSidebar();
 
-    const handleUpdateForm = (formData: FormData) => {
-        startTransition(async () => {
-            const res = await updateProduct(formData);
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ProductInput, any, ProductOutput>({
+        resolver: zodResolver(ProductUpdateSchema),
+        defaultValues: {
+            name: product.name,
+            price: Number(product.price),
+            sku: product.sku || '',
+            lowStockAt: product.lowStockAt,
+        },
+    });
 
-            if (res.success) {
-                toast.success(res.message);
-                formRef.current?.reset();
-                router.push("/inventory");
-            } else {
-                toast.error(res.message);
-            }
-        })
+    const handleSubmitForm: SubmitHandler<ProductOutput> = async (data) => {
+        const res = await updateProduct(data);
+        if (res.success) {
+            toast.success(res.message);
+            router.push("/inventory");
+            reset();
+        } else {
+            toast.error(res.message);
+        }
     }
 
     return (
@@ -53,9 +66,12 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                 </div>
                 <div className="max-w-xl">
                     <div className="bg-white p-6 border border-gray-200 rounded-lg shadow" >
-                        <form ref={formRef} className="space-y-6" action={handleUpdateForm}>
+                        <form
+                            className="space-y-6"
+                            onSubmit={handleSubmit(handleSubmitForm)}
+                        >
                             {/* Product Id */}
-                            <input type="hidden" name="id" value={product.id} />
+                            <input type="hidden" {...register('id')} value={product.id} />
                             {/* Product Name */}
                             <div>
                                 <label
@@ -67,11 +83,10 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                                 <input
                                     type="text"
                                     id="name"
-                                    name="name"
-                                    defaultValue={product.name}
-                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
-                                    required
+                                    {...register('name')}
+                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                 />
+                                {errors.name && <span className="ml-1 text-sm text-red-500">{errors.name.message}</span>}
                             </div>
                             {/* Price ^ Sku */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -85,12 +100,11 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                                     <input
                                         type="number"
                                         id="price"
-                                        name="price"
                                         step="0.01"
-                                        defaultValue={Number(product.price)}
-                                        className="text-sm px-4 py-2 text-gray-700 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
-                                        required
+                                        {...register('price')}
+                                        className="text-sm px-4 py-2 text-gray-700 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                     />
+                                    {errors.price && <span className="ml-1 text-sm text-red-500">{errors.price.message}</span>}
                                 </div>
                                 <div>
                                     <label
@@ -102,10 +116,10 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                                     <input
                                         type="text"
                                         id="sku"
-                                        name="sku"
-                                        defaultValue={product.sku || ''}
-                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
+                                        {...register('sku')}
+                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                     />
+                                    {errors.sku && <span className="ml-1 text-sm text-red-500">{errors.sku.message}</span>}
                                 </div>
                             </div>
                             {/* Low Stock Threshold*/}
@@ -119,19 +133,24 @@ const UpdateProduct = ({ product }: UpdateProductProps) => {
                                 <input
                                     type="number"
                                     id="lowStockAt"
-                                    name="lowStockAt"
-                                    defaultValue={product.lowStockAt || 0}
-                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
+                                    {...register('lowStockAt')}
+                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                 />
+                                {errors.lowStockAt && <span className="ml-1 text-sm text-red-500">{errors.lowStockAt.message}</span>}
                             </div>
                             {/* Submit and Cancel Buttons */}
-                            <div className="flex items-center gap-3 mt-4">
-                                <button type="submit" className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer">
-                                    Update Product
+                            <div className="flex flex-col md:flex-row items-center gap-3 mt-4">
+                                <button
+                                    type="submit"
+                                    className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer w-full md:w-auto
+                                    disabled:cursor-not-allowed disabled:bg-gray-400 focus:outline-violet-800"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? 'Updating Product...' : 'Update Product'}
                                 </button>
                                 <Link
                                     href={`/inventory`}
-                                    className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm cursor-pointer"
+                                    className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm text-center cursor-pointer w-full md:w-auto focus:outline-gray-400"
                                 >
                                     Cancel
                                 </Link>

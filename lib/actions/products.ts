@@ -52,15 +52,9 @@ export const createProduct = async (data: z.infer<typeof ProductSchema>) => {
   }
 };
 
-export const updateProduct = async (formData: FormData) => {
+export const updateProduct = async (data: z.infer<typeof ProductUpdateSchema>) => {
   try {
-    const parsedProduct = ProductUpdateSchema.safeParse({
-      id: formData.get("id"),
-      name: formData.get("name"),
-      price: formData.get("price"),
-      sku: formData.get("sku") || undefined,
-      lowStockAt: formData.get("lowStockAt") || undefined,
-    });
+    const parsedProduct = ProductUpdateSchema.safeParse(data);
 
     if (!parsedProduct.success) {
       console.error("Zod Validation Error: ", parsedProduct.error.message);
@@ -78,7 +72,10 @@ export const updateProduct = async (formData: FormData) => {
 
     await prisma.product.update({
       where: {id: productData.id},
-      data: {...productData},
+      data: {
+        ...productData,
+        sku: productData.sku === "" ? null : productData.sku,
+      },
     });
 
     revalidatePath("/inventory");
