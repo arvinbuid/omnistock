@@ -1,9 +1,13 @@
 'use client'
 
 import { adjustStock } from "@/lib/actions/products";
+import { StockAdjustmentSchema } from "@/lib/validators";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle } from "lucide-react";
 import { startTransition, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import z from "zod";
 
 interface StockAdjustmentProps {
     productId: string
@@ -11,20 +15,31 @@ interface StockAdjustmentProps {
     quantity: number
 }
 
+type StockAdjustmentInput = z.input<typeof StockAdjustmentSchema>
+type StockAdjustmentOutput = z.output<typeof StockAdjustmentSchema>
+
 const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleSubmitForm = (formData: FormData) => {
-        startTransition(async () => {
-            const res = await adjustStock(formData);
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<StockAdjustmentInput, any, StockAdjustmentOutput>({
+        resolver: zodResolver(StockAdjustmentSchema),
+        defaultValues: {
+            productId,
+            quantity: 0,
+            adjustmentType: "RECEIVE",
+            reason: ""
+        }
+    });
 
-            if (res.success) {
-                toast.success(res.message);
-                setIsModalOpen(false);
-            } else {
-                toast.error(res.message);
-            }
-        })
+    const handleSubmitForm: SubmitHandler<StockAdjustmentOutput> = async (data) => {
+        const res = await adjustStock(data);
+
+        if (res.success) {
+            toast.success(res.message);
+            setIsModalOpen(false);
+        } else {
+            toast.error(res.message);
+        }
     }
 
     return (
@@ -53,9 +68,9 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                         </div>
                         <form
                             className="space-y-4"
-                            action={handleSubmitForm}
+                            onSubmit={handleSubmit(handleSubmitForm)}
                         >
-                            <input type="hidden" name="productId" value={productId} />
+                            <input type="hidden" {...register("productId")} value={productId} />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Product Name */}
                                 <div>
@@ -72,7 +87,6 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                                         defaultValue={name}
                                         disabled
                                         className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 disabled:bg-gray-200 cursor-not-allowed"
-                                        required
                                     />
                                 </div>
                                 {/* Current Stock */}
@@ -90,7 +104,6 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                                         defaultValue={quantity}
                                         disabled
                                         className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 disabled:bg-gray-200 cursor-not-allowed"
-                                        required
                                     />
                                 </div>
                                 {/* New Quantity */}
@@ -104,11 +117,10 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                                     <input
                                         type="number"
                                         step='1'
-                                        id="newQuantity"
-                                        name="newQuantity"
-                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
-                                        required
+                                        {...register("quantity")}
+                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                     />
+                                    {errors.quantity && <span className="ml-1 text-sm text-red-500">{errors.quantity.message}</span>}
                                 </div>
                                 {/* Adjustment Type */}
                                 <div>
@@ -119,14 +131,15 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                                         Adjustment Type
                                     </label>
                                     <select
-                                        name="adjustmentType"
                                         id="adjustmentType"
-                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 cursor-pointer"
+                                        {...register("adjustmentType")}
+                                        className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 cursor-pointer mb-1"
                                     >
                                         <option value="RECEIVE">Receive</option>
                                         <option value="ISSUE">Issue</option>
                                         <option value="COUNT">Count</option>
                                     </select>
+                                    {errors.adjustmentType && <span className="ml-1 text-sm text-red-500">{errors.adjustmentType.message}</span>}
                                 </div>
                             </div>
                             {/* Reason */}
@@ -138,21 +151,26 @@ const StockAdjustment = ({ productId, name, quantity }: StockAdjustmentProps) =>
                                     Reason
                                 </label>
                                 <textarea
-                                    name="reason"
                                     id="reason"
-                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400"
+                                    {...register("reason")}
+                                    className="text-sm px-4 py-2 text-gray-700 placeholder-gray-400 w-full border border-gray-300 rounded-md focus:outline-none focus:border-gray-400 mb-1"
                                     rows={7}
                                 />
+                                {errors.reason && <span className="ml-1 text-sm text-red-500">{errors.reason.message}</span>}
                             </div>
                             {/* Submit and Cancel Buttons */}
                             <div className="flex flex-col md:flex-row items-center gap-3 mt-4">
-                                <button type="submit" className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer w-full md:w-auto focus:outline-violet-900">
-                                    Commit Adjustment
+                                <button
+                                    type="submit"
+                                    className="px-4 py-3 text-white rounded-md bg-violet-500 text-sm cursor-pointer w-full md:w-auto disabled:cursor-not-allowed disabled:bg-gray-400 focus:outline-violet-800"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? 'Committing...' : 'Commit Adjustment'}
                                 </button>
                                 <button
                                     type='button'
                                     onClick={() => setIsModalOpen(false)}
-                                    className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm cursor-pointer text-center w-full md:w-auto focus:outline-gray-400/80"
+                                    className="px-4 py-3 text-gray-900 rounded-md bg-gray-400/30 text-sm text-center cursor-pointer w-full md:w-auto focus:outline-gray-400"
                                 >
                                     Cancel
                                 </button>

@@ -121,17 +121,12 @@ export const deleteProduct = async (formData: FormData) => {
   }
 };
 
-export const adjustStock = async (formData: FormData) => {
+export const adjustStock = async (data: z.infer<typeof StockAdjustmentSchema>) => {
   try {
     const user = await getCurrentUser();
     const userId = user.id;
 
-    const parsed = StockAdjustmentSchema.safeParse({
-      productId: formData.get("productId"),
-      adjustmentType: formData.get("adjustmentType"),
-      quantity: formData.get("newQuantity"),
-      reason: formData.get("reason"),
-    });
+    const parsed = StockAdjustmentSchema.safeParse(data);
 
     if (!parsed.success) {
       console.error("Zod Validation Error: ", parsed.error.message);

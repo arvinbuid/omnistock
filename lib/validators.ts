@@ -31,6 +31,6 @@ export const AdjustmentType = z.enum(["RECEIVE", "ISSUE", "COUNT"]);
 export const StockAdjustmentSchema = z.object({
   productId: z.string().min(1, "Product ID is required"),
   adjustmentType: AdjustmentType,
-  quantity: z.coerce.number().int().min(1, "Quantity must be a positive number"),
+  quantity: z.coerce.number().int().min(0, "Quantity must be a positive number"),
   reason: z.string().min(5, "A reason for the adjustment is required for auditing."),
 });
