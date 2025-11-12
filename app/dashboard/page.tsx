@@ -29,7 +29,13 @@ const DashboardWrapper = async () => {
         })
     ])
 
-    const totalValue = allProducts.reduce((sum, product) => sum + Number(product.price) * product.quantity, 0);
+    const totalValueCents = allProducts.reduce((sum, product) => {
+        const priceCents = Math.round(Number(product.price.toString()) * 100)
+        return sum + priceCents * product.quantity;
+    }, 0)
+
+    const totalValue = totalValueCents / 100;
+
     const recent = await prisma.product.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
