@@ -3,7 +3,18 @@ const prisma = new PrismaClient();
 async function main() {
   const demoUserId = "42851b20-6692-4bd6-862e-fda91192eb08";
 
-  // create 25 sample products
+  console.log("Deleting existing stock movements..."); // The model name 'stockMovement' is inferred from the constraint name
+  await prisma.stockMovement.deleteMany({});
+  console.log("Existing stock movements deleted.");
+
+  console.log("");
+
+  // Delete existing products from the database
+  console.log("Deleting existing products...");
+  await prisma.product.deleteMany({});
+  console.log("Existing products deleted.");
+
+  // Create 25 sample products
   await prisma.product.createMany({
     data: Array.from({length: 30}).map((_, i) => ({
       userId: demoUserId,
