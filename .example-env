@@ -1,0 +1,5 @@
+DATABASE_URL="postgresql://username:password@host:port/dbname"
+
+NEXT_PUBLIC_STACK_PROJECT_ID='your-next-public-stack-project-id'
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY='your-next-public-stack-publishable-client-key'
+STACK_SECRET_SERVER_KEY='your-stack-secret-server-key'
