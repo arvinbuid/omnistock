@@ -1,9 +1,11 @@
+'use client'
+
 import Image from "next/image"
 import Picture from '../public/images/business-woman.jpg';
-
 import localFont from 'next/font/local'
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { motion } from "motion/react";
 
 const roobertBold = localFont({
   src: '../public/fonts/roobert-bold.otf'
@@ -16,7 +18,12 @@ const roobertRegular = localFont({
 export default function Home() {
   return (
     <div className="h-screen w-screen bg-gray-50 relative flex items-center justify-center">
-      <div className="w-full md:w-[65%] max-w-full mx-14 md:mx-0 md:max-w-[65%] h-[85%] bg-[#4642f0] rounded-2xl flex justify-between">
+      <motion.div
+        className="w-full md:w-[65%] max-w-full mx-14 md:mx-0 md:max-w-[65%] h-[85%] bg-[#4642f0] rounded-2xl flex justify-between"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
+      >
         <div className="max-w-xl p-10 md:p-16">
           <div className="flex-1">
             <div className="mb-4">
@@ -39,9 +46,10 @@ export default function Home() {
             src={Picture}
             alt='Business Woman'
             className="rounded-r-2xl w-full h-full object-cover hidden lg:block"
+            priority
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
