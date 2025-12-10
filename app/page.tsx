@@ -1,44 +1,45 @@
-import Image from "next/image";
+import Image from "next/image"
+import Picture from '../public/images/business-woman.jpg';
 
-import Picture from '../public/images/landing-image.svg';
+import localFont from 'next/font/local'
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+
+const roobertBold = localFont({
+  src: '../public/fonts/roobert-bold.otf'
+})
+
+const roobertRegular = localFont({
+  src: '../public/fonts/roobert-regular.otf'
+})
 
 export default function Home() {
   return (
-    <div className="h-screen bg-gray-50 relative flex items-center">
-      {/* Top Rectangle */}
-      <div className="h-24 md:h-36 bg-[#6C63FF] w-full rectangle-top absolute top-0"></div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-        {/* Left Section */}
-        <div className="flex flex-col justify-center items-center">
-          <div className=" max-w-lg pl-12 pr-6 space-y-4">
-            <h1 className="text-violet-800 text-[3rem] lg:text-[3.5rem] tracking-wide inline-block font-semibold">Omnistock</h1>
-            <p className="text-lg md:text-xl tracking-wide">A powerful modern solution designed to improve how you track, manage, and optimize your entire stock lifecycle.</p>
-            <Link href='/dashboard'>
-              <button
-                className="px-10 py-3 text-white bg-[#6C63FF] hover:bg-[#524dc2] transition-colors ease-in rounded-full mt-4  cursor-pointer"
-              >
-                <span className="uppercase font-roboto tracking-wider text-lg leading-5 sm:leading-6">Get Started</span>
-              </button>
-            </Link>
+    <div className="h-screen w-screen bg-gray-50 relative flex items-center justify-center">
+      <div className="w-[65%] max-w-[65%] h-[85%] bg-[#4642f0] rounded-2xl flex">
+        <div className="max-w-xl h-full p-16">
+          <div className="mb-4">
+            <h1 className={`text-6xl text-[#FBD0FF] font-bold leading-snug tracking-tight ${roobertBold.className}`}>Smarter inventory for business & teams</h1>
           </div>
+          <p className={`pl-1 text-[#FBD0FF] ${roobertRegular.className} mb-5`}>
+            Focused on simplifying and empowering efficient, real-time inventory control.
+          </p>
+          <Link href='/dashboard'>
+            <button className={`px-4 py-3 text-sm text-black ${roobertBold.className} bg-[#FBD0FF] hover:bg-[#eba6f1] transition-colors rounded-xl cursor-pointer flex items-center gap-2 rounded-l-[18px] rounded-r-[20px]`}>
+              Start Now
+              <span><ChevronRight /></span>
+            </button>
+          </Link>
         </div>
-        {/* Right Section */}
-        <div className="hidden md:flex justify-center">
-          <Image
-            src={Picture}
-            alt="picture"
-            width={0}
-            height={0}
-            className="w-auto px-4"
+        {/* Image */}
 
-          />
-        </div>
+        <Image
+          src={Picture}
+          alt='Business Woman'
+          className="rounded-r-2xl w-full object-cover"
+        />
+
       </div>
-
-      {/* Bottom Rectangle */}
-      <div className="h-24 md:h-36 bg-[#6C63FF] w-full rectangle-bottom absolute bottom-0"></div>
     </div>
   );
 }
